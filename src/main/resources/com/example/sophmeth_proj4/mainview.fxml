@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.sophmeth_proj4.MainViewController"
+      spacing="10">
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <MenuBar>
+        <Menu text="RU Pizza Main Menu">
+            <MenuItem text="Exit" onAction="#handleExit"/>
+        </Menu>
+    </MenuBar>
+
+    <GridPane hgap="10" vgap="10" alignment="CENTER">
+        <Button onAction="#showChicagoView" GridPane.rowIndex="0" GridPane.columnIndex="0">
+            <graphic>
+                <ImageView fx:id="chicagoImage" fitWidth="50" fitHeight="50"/>
+            </graphic>
+            <text>Order Chicago Style</text>
+        </Button>
+
+        <Button onAction="#showNewYorkView" GridPane.rowIndex="0" GridPane.columnIndex="1">
+            <graphic>
+                <ImageView fx:id="newYorkImage" fitWidth="50" fitHeight="50"/>
+            </graphic>
+            <text>Order New York Style</text>
+        </Button>
+
+        <Button onAction="#showCurrentOrderView" GridPane.rowIndex="1" GridPane.columnIndex="0">
+            <graphic>
+                <ImageView fx:id="currentOrderImage" fitWidth="50" fitHeight="50"/>
+            </graphic>
+            <text>View Current Order</text>
+        </Button>
+
+        <Button onAction="#showStoreOrdersView" GridPane.rowIndex="1" GridPane.columnIndex="1">
+            <graphic>
+                <ImageView fx:id="storeOrdersImage" fitWidth="50" fitHeight="50"/>
+            </graphic>
+            <text>View Store Orders</text>
+        </Button>
+    </GridPane>
+</VBox>

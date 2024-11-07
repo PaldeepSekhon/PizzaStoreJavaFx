@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.sophmeth_proj4.NyViewController" spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    <Label text="New York Style Pizza" style="-fx-font-size: 20px;"/>
+
+    <HBox spacing="15">
+        <VBox spacing="10">
+            <Label text="Pizza Type:"/>
+            <ComboBox fx:id="pizzaTypeComboBox" promptText="Select Type"/>
+
+            <Label text="Size:"/>
+            <ComboBox fx:id="sizeComboBox" promptText="Select Size"/>
+
+            <Label text="Crust Type:"/>
+            <Label fx:id="crustLabel" text=""/>
+        </VBox>
+
+        <VBox>
+            <ImageView fx:id="pizzaImageView" fitWidth="200" fitHeight="200" preserveRatio="true"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="15">
+        <VBox spacing="5">
+            <Label text="Included Toppings:"/>
+            <ListView fx:id="includedToppingsListView" prefHeight="150" prefWidth="200"/>
+        </VBox>
+
+        <VBox spacing="5" fx:id="customToppingsBox">
+            <Label text="Available Toppings:"/>
+            <ListView fx:id="availableToppingsListView" prefHeight="150" prefWidth="200"/>
+            <HBox spacing="10">
+                <Button text="Add Selected Topping" onAction="#handleAddTopping"/>
+                <Button text="Remove Selected Topping" onAction="#handleRemoveTopping"/>
+            </HBox>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="20" alignment="CENTER_LEFT">
+        <Label text="Pizza Price: $"/>
+        <Label fx:id="priceLabel" text="0.00"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Add to Order" onAction="#handleAddToOrder"/>
+        <Button text="Back to Main Menu" onAction="#handleBackToMain"/>
+    </HBox>
+</VBox>

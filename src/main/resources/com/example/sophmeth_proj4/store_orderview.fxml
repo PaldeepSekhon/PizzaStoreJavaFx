@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.sophmeth_proj4.StoreOrdersController" spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    <Label text="Store Orders" style="-fx-font-size: 20px;"/>
+
+    <ListView fx:id="storeOrdersListView" VBox.vgrow="ALWAYS"/>
+
+    <VBox spacing="5">
+        <Label text="Order Details:"/>
+        <TextArea fx:id="orderDetailsTextArea" editable="false" prefRowCount="5"/>
+    </VBox>
+
+    <HBox spacing="10">
+        <Button text="Cancel Selected Order" onAction="#handleCancelOrder"/>
+        <Button text="Export All Orders" onAction="#handleExportOrders"/>
+        <Button text="Back to Main Menu" onAction="#handleBackToMain"/>
+    </HBox>
+</VBox>
