@@ -13,5 +13,12 @@ public enum Topping {
     HAM,
     EXTRA_CHEESE,
     BLACK_OLIVES,
-    SPINACH
+    SPINACH;
+
+    @Override
+    public String toString() {
+        // Capitalize the first letter and lowercase the rest
+        String name = name().toLowerCase();
+        return name.substring(0, 1).toUpperCase() + name.substring(1);
+    }
 }

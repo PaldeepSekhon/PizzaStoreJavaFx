@@ -40,8 +40,8 @@
             <Label text="Available Toppings:"/>
             <ListView fx:id="availableToppingsListView" prefHeight="150" prefWidth="200"/>
             <HBox spacing="10">
-                <Button text="Add Selected Topping" onAction="#handleAddTopping"/>
-                <Button text="Remove Selected Topping" onAction="#handleRemoveTopping"/>
+                <Button fx:id="addButton" text="Add Selected Topping" onAction="#handleAddTopping"/>
+                <Button fx:id="removeButton" text="Remove Selected Topping" onAction="#handleRemoveTopping"/>
             </HBox>
         </VBox>
     </HBox>
@@ -54,5 +54,6 @@
     <HBox spacing="10">
         <Button text="Add to Order" onAction="#handleAddToOrder"/>
         <Button text="Back to Main Menu" onAction="#handleBackToMain"/>
+        <Button text="View Current Order" onAction="#handleViewCurrentOrder" />
     </HBox>
 </VBox>

@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -46,8 +47,19 @@ public class ChicagoViewController {
     @FXML
     private Label priceLabel;
 
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private Button removeButton;
+
     private ObservableList<Topping> availableToppings;
     private ObservableList<Topping> includedToppings;
+
+    private ObservableList<Topping> deluxeToppings;
+    private ObservableList<Topping> bbqToppings;
+    private ObservableList<Topping> meatzzaToppings;
+
 
     private double basePrice = 0;
     private double toppingPrice = 1.69; // Price per topping
@@ -55,15 +67,17 @@ public class ChicagoViewController {
     private PizzaFactory pizzaFactory;
     private Pizza currentPizza;
     private Order currentOrder; // Tracks the current order
-    private OrderManager orderManager; // Tracks all orders
+   // Tracks all orders
 
     public ChicagoViewController(){
         this.pizzaFactory = new ChicagoPizza(); // Chicago-style pizza factory
         this.availableToppings = FXCollections.observableArrayList(EnumSet.allOf(Topping.class));
         this.includedToppings = FXCollections.observableArrayList();
-
+        this.deluxeToppings = FXCollections.observableArrayList(Topping.SAUSAGE,Topping.PEPPERONI,Topping.GREEN_PEPPER,Topping.ONION,Topping.MUSHROOM);
+        this.bbqToppings = FXCollections.observableArrayList(Topping.BBQ_CHICKEN,Topping.GREEN_PEPPER,Topping.PROVOLONE,Topping.CHEDDAR);
+        this.meatzzaToppings = FXCollections.observableArrayList(Topping.SAUSAGE,Topping.PEPPERONI,Topping.BEEF,Topping.HAM);
         this.currentOrder = new Order(); // Start a new order
-        this.orderManager = new OrderManager(); // Initialize the order manager
+     // Initialize the order manager
     }
     @FXML
     public void initialize() {
@@ -80,14 +94,24 @@ public class ChicagoViewController {
         includedToppingsListView.setItems(includedToppings);
 
         sizeComboBox.setOnAction(event -> updateBasePrice());
+        pizzaTypeComboBox.setOnAction(event -> handlePizzaTypeSelection());
+
 
         // Default crust label
         crustLabel.setText("");
+        if (pizzaTypeComboBox.getSelectionModel().getSelectedItem() != null) {
+            handlePizzaTypeSelection();
+        }
+
+
+
     }
+
 
     public void handleAddToOrder(ActionEvent actionEvent) {
         String pizzaType = pizzaTypeComboBox.getSelectionModel().getSelectedItem();
         String size = sizeComboBox.getSelectionModel().getSelectedItem();
+
 
         if (pizzaType != null && size != null) {
             Size pizzaSize = Size.valueOf(size.toUpperCase());
@@ -110,7 +134,7 @@ public class ChicagoViewController {
 
             if (currentPizza != null) {
                 // Add pizza to the current order
-                currentOrder.addPizza(currentPizza);
+                GlobalOrder.getCurrentOrder().addPizza(currentPizza);
 
                 // Print a confirmation
 
@@ -118,6 +142,25 @@ public class ChicagoViewController {
                 // Update order price
                 updatePrice();
             }
+        }
+    }
+
+    @FXML
+    public void handleViewCurrentOrder(ActionEvent actionEvent) {
+        try {
+            // Load the new FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("current_orderview.fxml"));
+            Parent currentOrderView = loader.load();
+
+            // Get the current stage from the ActionEvent
+            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Set the new scene on the current stage
+            currentStage.setScene(new Scene(currentOrderView));
+            currentStage.setTitle("Current Order");
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -229,6 +272,43 @@ public class ChicagoViewController {
             case MEDIUM: return 10.99;
             case LARGE: return 12.99;
             default: return 0;
+        }
+    }
+
+    private void handlePizzaTypeSelection() {
+        String selectedPizzaType = pizzaTypeComboBox.getSelectionModel().getSelectedItem();
+
+        if ("Deluxe".equals(selectedPizzaType)) {
+            // Disable available toppings list and buttons
+            includedToppings.clear();
+            availableToppingsListView.setDisable(true);
+            includedToppingsListView.setItems(FXCollections.observableArrayList(deluxeToppings));
+            addButton.setDisable(true);
+            crustLabel.setText("Deep Dish");
+            removeButton.setDisable(true);
+        } else if ("BBQ Chicken".equals(selectedPizzaType)) {
+            includedToppings.clear();
+            availableToppingsListView.setDisable(true);
+            includedToppingsListView.setItems(FXCollections.observableArrayList(bbqToppings));
+            addButton.setDisable(true);
+            crustLabel.setText("Pan");
+            removeButton.setDisable(true);
+        } else if ("Meatzza".equals(selectedPizzaType)) {
+            includedToppings.clear();
+            availableToppingsListView.setDisable(true);
+            includedToppingsListView.setItems(FXCollections.observableArrayList(meatzzaToppings));
+            addButton.setDisable(true);
+            crustLabel.setText("Stuffed");
+            removeButton.setDisable(true);
+
+        } else if ("Build Your Own".equals(selectedPizzaType)) {
+            // Re-enable for other pizza types
+            availableToppingsListView.setDisable(false);
+            includedToppingsListView.setItems(includedToppings);
+            addButton.setDisable(false);
+            removeButton.setDisable(false);
+            crustLabel.setText("Pan");
+
         }
     }
 

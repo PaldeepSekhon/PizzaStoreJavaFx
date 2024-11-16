@@ -25,4 +25,7 @@ public class ChicagoPizza implements PizzaFactory {
         }
         return pizza;
     }
+    public String getStyle() {
+        return "Chicago Style";
+    }
 }
