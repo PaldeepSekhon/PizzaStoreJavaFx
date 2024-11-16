@@ -54,11 +54,16 @@ public class ChicagoViewController {
 
     private PizzaFactory pizzaFactory;
     private Pizza currentPizza;
+    private Order currentOrder; // Tracks the current order
+    private OrderManager orderManager; // Tracks all orders
 
     public ChicagoViewController(){
         this.pizzaFactory = new ChicagoPizza(); // Chicago-style pizza factory
         this.availableToppings = FXCollections.observableArrayList(EnumSet.allOf(Topping.class));
         this.includedToppings = FXCollections.observableArrayList();
+
+        this.currentOrder = new Order(); // Start a new order
+        this.orderManager = new OrderManager(); // Initialize the order manager
     }
     @FXML
     public void initialize() {
@@ -74,11 +79,46 @@ public class ChicagoViewController {
         // Set included toppings
         includedToppingsListView.setItems(includedToppings);
 
+        sizeComboBox.setOnAction(event -> updateBasePrice());
+
         // Default crust label
         crustLabel.setText("");
     }
 
     public void handleAddToOrder(ActionEvent actionEvent) {
+        String pizzaType = pizzaTypeComboBox.getSelectionModel().getSelectedItem();
+        String size = sizeComboBox.getSelectionModel().getSelectedItem();
+
+        if (pizzaType != null && size != null) {
+            Size pizzaSize = Size.valueOf(size.toUpperCase());
+            switch (pizzaType) {
+                case "Deluxe":
+                    currentPizza = pizzaFactory.createDeluxe(pizzaSize);
+                    break;
+                case "BBQ Chicken":
+                    currentPizza = pizzaFactory.createBBQChicken(pizzaSize);
+                    break;
+                case "Meatzza":
+                    currentPizza = pizzaFactory.createMeatzza(pizzaSize);
+                    break;
+                case "Build Your Own":
+                    currentPizza = pizzaFactory.createBuildYourOwn(pizzaSize, new ArrayList<>(includedToppings));
+                    break;
+                default:
+                    currentPizza = null;
+            }
+
+            if (currentPizza != null) {
+                // Add pizza to the current order
+                currentOrder.addPizza(currentPizza);
+
+                // Print a confirmation
+
+
+                // Update order price
+                updatePrice();
+            }
+        }
     }
 
 
@@ -106,6 +146,12 @@ public class ChicagoViewController {
     }
 
     public void handleRemoveTopping(ActionEvent actionEvent) {
+        Topping selectedTopping = includedToppingsListView.getSelectionModel().getSelectedItem();
+        if (selectedTopping != null) {
+            includedToppings.remove(selectedTopping);
+            availableToppings.add(selectedTopping);
+            updatePrice();
+        }
     }
 
     @FXML
@@ -122,6 +168,68 @@ public class ChicagoViewController {
     private void updatePrice() {
         double price = basePrice + (includedToppings.size() * toppingPrice);
         priceLabel.setText(String.format("%.2f", price));
+    }
+
+    private void updateBasePrice() {
+        String size = sizeComboBox.getSelectionModel().getSelectedItem();
+        String pizzaType = pizzaTypeComboBox.getSelectionModel().getSelectedItem();
+
+        if (size != null && pizzaType != null) {
+            Size pizzaSize = Size.valueOf(size.toUpperCase());
+            switch (pizzaType) {
+                case "Deluxe":
+                    basePrice = getDeluxeBasePrice(pizzaSize);
+                    break;
+                case "BBQ Chicken":
+                    basePrice = getBBQChickenBasePrice(pizzaSize);
+                    break;
+                case "Meatzza":
+                    basePrice = getMeatzzaBasePrice(pizzaSize);
+                    break;
+                case "Build Your Own":
+                    basePrice = getBuildYourOwnBasePrice(pizzaSize);
+                    break;
+            }
+        } else {
+            basePrice = 0;
+        }
+        updatePrice(); // Refresh the price display
+    }
+
+    private double getDeluxeBasePrice(Size size) {
+        switch (size) {
+            case SMALL: return 16.99;
+            case MEDIUM: return 18.99;
+            case LARGE: return 20.99;
+            default: return 0;
+        }
+    }
+
+    private double getBBQChickenBasePrice(Size size) {
+        switch (size) {
+            case SMALL: return 14.99;
+            case MEDIUM: return 16.99;
+            case LARGE: return 19.99;
+            default: return 0;
+        }
+    }
+
+    private double getMeatzzaBasePrice(Size size) {
+        switch (size) {
+            case SMALL: return 17.99;
+            case MEDIUM: return 19.99;
+            case LARGE: return 21.99;
+            default: return 0;
+        }
+    }
+
+    private double getBuildYourOwnBasePrice(Size size) {
+        switch (size) {
+            case SMALL: return 8.99;
+            case MEDIUM: return 10.99;
+            case LARGE: return 12.99;
+            default: return 0;
+        }
     }
 
 }
