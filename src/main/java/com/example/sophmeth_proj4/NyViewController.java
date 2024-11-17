@@ -59,6 +59,8 @@ public class NyViewController {
     private ObservableList<Topping> bbqToppings;
     private ObservableList<Topping> meatzzaToppings;
 
+    private ObservableList<Topping> originalAvailableToppings;
+
     private double basePrice = 0;
     private double toppingPrice = 1.69;
 
@@ -67,6 +69,7 @@ public class NyViewController {
     public NyViewController() {
         this.pizzaFactory = new NYPizza(); // New York-style pizza factory
         this.availableToppings = FXCollections.observableArrayList(EnumSet.allOf(Topping.class));
+        this.originalAvailableToppings = FXCollections.observableArrayList(availableToppings);
         this.includedToppings = FXCollections.observableArrayList();
         this.deluxeToppings = FXCollections.observableArrayList(Topping.SAUSAGE, Topping.PEPPERONI, Topping.GREEN_PEPPER, Topping.ONION, Topping.MUSHROOM);
         this.bbqToppings = FXCollections.observableArrayList(Topping.BBQ_CHICKEN, Topping.GREEN_PEPPER, Topping.PROVOLONE, Topping.CHEDDAR);
@@ -177,6 +180,16 @@ public class NyViewController {
             if (currentPizza != null) {
                 GlobalOrder.getCurrentOrder().addPizza(currentPizza);
                 updatePrice();
+
+                pizzaTypeComboBox.getSelectionModel().clearSelection();
+                sizeComboBox.getSelectionModel().clearSelection();
+                includedToppings.clear();
+                includedToppingsListView.setItems(includedToppings);
+
+                availableToppings.setAll(originalAvailableToppings);
+                availableToppingsListView.setItems(availableToppings);
+                updatePrice();
+
             }
         }
     }

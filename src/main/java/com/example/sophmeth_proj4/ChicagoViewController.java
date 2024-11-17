@@ -60,6 +60,8 @@ public class ChicagoViewController {
     private ObservableList<Topping> bbqToppings;
     private ObservableList<Topping> meatzzaToppings;
 
+    private ObservableList<Topping> originalAvailableToppings;
+
 
     private double basePrice = 0;
     private double toppingPrice = 1.69; // Price per topping
@@ -72,6 +74,7 @@ public class ChicagoViewController {
     public ChicagoViewController(){
         this.pizzaFactory = new ChicagoPizza(); // Chicago-style pizza factory
         this.availableToppings = FXCollections.observableArrayList(EnumSet.allOf(Topping.class));
+        this.originalAvailableToppings = FXCollections.observableArrayList(availableToppings); // Backup of original toppings
         this.includedToppings = FXCollections.observableArrayList();
         this.deluxeToppings = FXCollections.observableArrayList(Topping.SAUSAGE,Topping.PEPPERONI,Topping.GREEN_PEPPER,Topping.ONION,Topping.MUSHROOM);
         this.bbqToppings = FXCollections.observableArrayList(Topping.BBQ_CHICKEN,Topping.GREEN_PEPPER,Topping.PROVOLONE,Topping.CHEDDAR);
@@ -140,6 +143,17 @@ public class ChicagoViewController {
 
 
                 // Update order price
+                updatePrice();
+
+                pizzaTypeComboBox.getSelectionModel().clearSelection();
+                sizeComboBox.getSelectionModel().clearSelection();
+                includedToppings.clear();
+                includedToppingsListView.setItems(includedToppings);
+
+                availableToppings.setAll(originalAvailableToppings);
+                availableToppingsListView.setItems(availableToppings);
+
+
                 updatePrice();
             }
         }
