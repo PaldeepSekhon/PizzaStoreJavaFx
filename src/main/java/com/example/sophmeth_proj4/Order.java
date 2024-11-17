@@ -1,7 +1,10 @@
 package com.example.sophmeth_proj4;
 
 import java.util.ArrayList;
-
+/**
+ * Represents the current order
+ * @author paldeepsekhon, adityaponni
+ */
 public class Order {
     private static int orderCounter = 1; // Keeps track of the order number sequence
     private int number; // Unique order number

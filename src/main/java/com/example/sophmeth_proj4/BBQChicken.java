@@ -1,5 +1,8 @@
 package com.example.sophmeth_proj4;
-
+/**
+ * Represents BBQChicken pizza with predefined topics
+ * @author paldeepsekhon, adityaponni
+ */
 public class BBQChicken extends Pizza {
     public BBQChicken(Crust crust, Size size) {
         super(crust, size);

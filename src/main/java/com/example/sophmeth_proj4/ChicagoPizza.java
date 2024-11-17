@@ -1,5 +1,9 @@
 package com.example.sophmeth_proj4;
 import java.util.ArrayList;
+/**
+ * Represents Chicago style pizzas
+ * @author paldeepsekhon, adityaponni
+ */
 public class ChicagoPizza implements PizzaFactory {
 
     @Override

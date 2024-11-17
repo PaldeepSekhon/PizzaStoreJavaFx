@@ -1,7 +1,10 @@
 package com.example.sophmeth_proj4;
 
 import java.util.ArrayList;
-
+/**
+ * Represents the abstraction for a pizza
+ * @author paldeepsekhon, adityaponni
+ */
 public abstract class Pizza {
     private ArrayList<Topping> toppings;
     private Crust crust;

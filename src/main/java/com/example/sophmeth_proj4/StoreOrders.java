@@ -2,7 +2,10 @@ package com.example.sophmeth_proj4;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Represents all the orders placed
+ * @author paldeepsekhon, adityaponni
+ */
 public class StoreOrders {
     private Map<Integer, Order> orders;
 

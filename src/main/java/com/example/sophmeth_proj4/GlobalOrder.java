@@ -1,5 +1,8 @@
 package com.example.sophmeth_proj4;
-
+/**
+ * Represents the current order
+ * @author paldeepsekhon, adityaponni
+ */
 public class GlobalOrder {
     private static Order currentOrder = new Order();
 

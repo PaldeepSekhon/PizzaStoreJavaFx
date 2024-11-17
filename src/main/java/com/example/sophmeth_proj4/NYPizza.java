@@ -1,7 +1,10 @@
 package com.example.sophmeth_proj4;
 
 import java.util.ArrayList;
-
+/**
+ * Represents New york style pizzas
+ * @author paldeepsekhon, adityaponni
+ */
 public class NYPizza implements PizzaFactory {
 
     @Override

@@ -1,5 +1,8 @@
 package com.example.sophmeth_proj4;
-
+/**
+ * Represents Meatzza pizza with predefined toppings
+ * @author paldeepsekhon, adityaponni
+ */
 public class Meatzza extends Pizza {
     public Meatzza(Crust crust, Size size) {
         super(crust, size);

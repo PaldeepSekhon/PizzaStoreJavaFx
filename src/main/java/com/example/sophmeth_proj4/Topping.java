@@ -1,5 +1,8 @@
 package com.example.sophmeth_proj4;
-
+/**
+ * Represents all the toppings available
+ * @author paldeepsekhon, adityaponni
+ */
 public enum Topping {
     SAUSAGE,
     PEPPERONI,

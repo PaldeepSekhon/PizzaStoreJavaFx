@@ -26,7 +26,10 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 
 import java.io.IOException;
-
+/**
+ * Represents controller for new york view
+ * @author paldeepsekhon, adityaponni
+ */
 public class NyViewController {
     @FXML
     private ComboBox<String> pizzaTypeComboBox;

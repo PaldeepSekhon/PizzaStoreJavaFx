@@ -14,7 +14,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import java.io.IOException;
-
+/**
+ * Represents controller for current order view
+ * @author paldeepsekhon, adityaponni
+ */
 public class CurrentOrderController {
     @FXML
     private Label orderNumberLabel;

@@ -19,7 +19,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 import java.io.IOException;
-
+/**
+ * Represents controller for the store orders view
+ * @author paldeepsekhon, adityaponni
+ */
 public class StoreOrdersController {
 
     @FXML

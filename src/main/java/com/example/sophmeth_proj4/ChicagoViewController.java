@@ -23,7 +23,10 @@ import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
-
+/**
+ * Represents controller for chicago view
+ * @author paldeepsekhon, adityaponni
+ */
 public class ChicagoViewController {
 
     @FXML

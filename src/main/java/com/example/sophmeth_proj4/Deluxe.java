@@ -1,5 +1,8 @@
 package com.example.sophmeth_proj4;
-
+/**
+ * Represents deluxe pizza with predefined topping
+ * @author paldeepsekhon, adityaponni
+ */
 public class Deluxe extends Pizza {
     public Deluxe(Crust crust, Size size) {
         super(crust, size);

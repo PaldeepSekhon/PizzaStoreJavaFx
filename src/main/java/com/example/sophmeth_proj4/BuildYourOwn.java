@@ -1,5 +1,8 @@
 package com.example.sophmeth_proj4;
-
+/**
+ * Represents BuildyourOwn pizza
+ * @author paldeepsekhon, adityaponni
+ */
 public class BuildYourOwn extends Pizza {
     private static final double BASE_PRICE_SMALL = 8.99;
     private static final double BASE_PRICE_MEDIUM = 10.99;

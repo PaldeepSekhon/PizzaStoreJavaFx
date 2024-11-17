@@ -6,7 +6,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+/**
+ * Represents the entry point for the application
+ * @author paldeepsekhon, adityaponni
+ */
 public class PizzaApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {

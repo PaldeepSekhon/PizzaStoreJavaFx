@@ -12,7 +12,10 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 
 import java.io.IOException;
-
+/**
+ * Represents the controller for the main view or main menu
+ * @author paldeepsekhon, adityaponni
+ */
 public class MainViewController {
     @FXML
     private Label welcomeText;
