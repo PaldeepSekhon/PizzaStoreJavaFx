@@ -7,8 +7,15 @@ public class Order {
     private int number; // Unique order number
     private ArrayList<Pizza> pizzas; // List of pizzas in the order
 
+    // Default constructor
     public Order() {
         this.number = orderCounter++;
+        this.pizzas = new ArrayList<>();
+    }
+
+    // Constructor with explicit order number
+    public Order(int orderNumber) {
+        this.number = orderNumber;
         this.pizzas = new ArrayList<>();
     }
 
@@ -35,13 +42,13 @@ public class Order {
         }
         return total;
     }
+
     public void clearPizzas() {
         pizzas.clear();
     }
 
-
     public double calculateSalesTax() {
-        return calculateTotal() * 0.06625; // New Jersey sales tax of 6.625%
+        return calculateTotal() * 0.06625;
     }
 
     public double calculateOrderTotal() {

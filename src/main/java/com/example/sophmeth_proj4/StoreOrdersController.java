@@ -55,12 +55,9 @@ public class StoreOrdersController {
             for (Pizza pizza : order.getPizzas()) {
                 details.append("- ")
                         .append(pizza.getClass().getSimpleName())
-                        .append(" (")
-                        .append(pizza.getSize())
-                        .append(", ")
-                        .append(pizza.getCrust())
-                        .append("): $")
-                        .append(String.format("%.2f", pizza.price()))
+                        .append(" (Size: ").append(pizza.getSize())
+                        .append(", Crust: ").append(pizza.getCrust())
+                        .append("): $").append(String.format("%.2f", pizza.price()))
                         .append("\nToppings: ")
                         .append(pizza.getToppings().isEmpty() ? "None" : pizza.getToppings())
                         .append("\n");
@@ -72,6 +69,7 @@ public class StoreOrdersController {
             orderDetailsTextArea.setText(details.toString());
         }
     }
+
     @FXML
     public void handleBackToMain(ActionEvent actionEvent) {
         try {

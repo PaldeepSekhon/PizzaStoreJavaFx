@@ -159,17 +159,16 @@ public class CurrentOrderController {
 
     public void handlePlaceOrder(ActionEvent actionEvent) {
         if (!GlobalOrder.getCurrentOrder().getPizzas().isEmpty()) {
-            // Add the current order to the store orders
-            GlobalStore.getStoreOrders().addOrder(GlobalOrder.getCurrentOrder());
+            Order orderToPlace = GlobalOrder.getCurrentOrder();
+            GlobalStore.getStoreOrders().addOrder(orderToPlace);
 
-            // Reset the current order
+            // Reset the current order with the next order number
             GlobalOrder.resetCurrentOrder();
 
-            // Show confirmation
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Order Placed");
             alert.setHeaderText("Your order has been placed!");
-            alert.setContentText("Order Number: " + (GlobalStore.getStoreOrders().getAllOrders().size()));
+            alert.setContentText("Order Number: " + orderToPlace.getNumber());
             alert.showAndWait();
 
             // Clear UI elements
@@ -179,7 +178,6 @@ public class CurrentOrderController {
             totalLabel.setText("0.00");
             orderNumberLabel.setText(String.valueOf(GlobalOrder.getCurrentOrder().getNumber()));
         } else {
-            // Show an error if no pizzas are in the order
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("No Pizzas in Order");
@@ -187,6 +185,7 @@ public class CurrentOrderController {
             alert.showAndWait();
         }
     }
+
 
     @FXML
     public void handleBackToMain(ActionEvent actionEvent) {
