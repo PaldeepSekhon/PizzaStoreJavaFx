@@ -35,6 +35,10 @@ public class Order {
         }
         return total;
     }
+    public void clearPizzas() {
+        pizzas.clear();
+    }
+
 
     public double calculateSalesTax() {
         return calculateTotal() * 0.06625; // New Jersey sales tax of 6.625%

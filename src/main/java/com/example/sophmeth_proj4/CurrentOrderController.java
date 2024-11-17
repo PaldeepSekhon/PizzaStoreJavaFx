@@ -82,11 +82,80 @@ public class CurrentOrderController {
         taxLabel.setText(String.format("%.2f", tax));
         totalLabel.setText(String.format("%.2f", total));
     }
+    @FXML
     public void handleRemoveSelected(ActionEvent actionEvent) {
+        // Get the selected item from the ListView
+        String selectedItem = orderItemsListView.getSelectionModel().getSelectedItem();
+
+        if (selectedItem != null) {
+            // Find the corresponding pizza in the currentOrder based on the selected item
+            Pizza pizzaToRemove = null;
+            for (Pizza pizza : currentOrder.getPizzas()) {
+                StringBuilder pizzaDetails = new StringBuilder();
+                pizzaDetails.append(pizza.getClass().getSimpleName())
+                        .append(" - Size: ").append(pizza.getSize())
+                        .append(", Crust: ").append(pizza.getCrust());
+
+                if (pizza.getToppings().isEmpty()) {
+                    pizzaDetails.append(" - Toppings: None");
+                } else {
+                    pizzaDetails.append(" - Toppings: ").append(pizza.getToppings());
+                }
+                pizzaDetails.append(" - Price: $").append(String.format("%.2f", pizza.price()));
+
+                // If the generated string matches the selected item, this is the pizza to remove
+                if (pizzaDetails.toString().equals(selectedItem)) {
+                    pizzaToRemove = pizza;
+                    break;
+                }
+            }
+
+            // Remove the pizza from the current order
+            if (pizzaToRemove != null) {
+                currentOrder.removePizza(pizzaToRemove);
+            }
+
+            // Remove the selected item from the ListView
+            orderItems.remove(selectedItem);
+
+            // Update totals
+            updateTotals();
+        } else {
+            // Show an alert if no item is selected
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Pizza Selected");
+            alert.setContentText("Please select a pizza to remove.");
+            alert.showAndWait();
+        }
     }
 
+
+
+    @FXML
     public void handleClearOrder(ActionEvent actionEvent) {
+        if (!currentOrder.getPizzas().isEmpty()) {
+            // Clear the current order's list of pizzas
+            currentOrder.clearPizzas();
+
+            // Clear the ListView
+            orderItems.clear();
+
+            // Update totals
+            updateTotals();
+
+            // Reset order number
+            orderNumberLabel.setText(String.valueOf(GlobalOrder.getCurrentOrder().getNumber()));
+        } else {
+            // Show an alert if the order is already empty
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Order Already Empty");
+            alert.setHeaderText("No Pizzas in Order");
+            alert.setContentText("There are no pizzas to clear.");
+            alert.showAndWait();
+        }
     }
+
 
     public void handlePlaceOrder(ActionEvent actionEvent) {
         if (!GlobalOrder.getCurrentOrder().getPizzas().isEmpty()) {

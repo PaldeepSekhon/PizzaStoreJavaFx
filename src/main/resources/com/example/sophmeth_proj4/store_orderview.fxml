@@ -2,24 +2,48 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.geometry.Insets?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.sophmeth_proj4.StoreOrdersController" spacing="10">
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.sophmeth_proj4.StoreOrdersController"
+      spacing="20"
+      style="-fx-background-color: #f5f5f5;">
+
     <padding>
-        <Insets top="10" right="10" bottom="10" left="10"/>
+        <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
-    <Label text="Store Orders" style="-fx-font-size: 20px;"/>
 
-    <ListView fx:id="storeOrdersListView" VBox.vgrow="ALWAYS"/>
+    <!-- Title Label -->
+    <Label text="Store Orders"
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"
+           alignment="CENTER" maxWidth="Infinity"/>
 
-    <VBox spacing="5">
-        <Label text="Order Details:"/>
-        <TextArea fx:id="orderDetailsTextArea" editable="false" prefRowCount="5"/>
+    <!-- Store Orders List -->
+    <ListView fx:id="storeOrdersListView"
+              VBox.vgrow="ALWAYS"
+              style="-fx-background-radius: 5; -fx-border-radius: 5;"/>
+
+    <!-- Order Details Section -->
+    <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5;">
+        <Label text="Order Details:" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+        <TextArea fx:id="orderDetailsTextArea"
+                  editable="false"
+                  prefRowCount="5"
+                  wrapText="true"
+                  style="-fx-background-radius: 5;"/>
     </VBox>
 
-    <HBox spacing="10">
-        <Button text="Cancel Selected Order" onAction="#handleCancelOrder"/>
-        <Button text="Export All Orders" onAction="#handleExportOrders"/>
-        <Button text="Back to Main Menu" onAction="#handleBackToMain"/>
+    <!-- Action Buttons Section -->
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="Cancel Selected Order"
+                onAction="#handleCancelOrder"
+                style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 5;"/>
+        <Button text="Export All Orders"
+                onAction="#handleExportOrders"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;"/>
+        <Button text="Back to Main Menu"
+                onAction="#handleBackToMain"
+                style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5;"/>
     </HBox>
 </VBox>
